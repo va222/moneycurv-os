@@ -24,7 +24,7 @@ type UserData = {
 };
 
 export async function POST(request: NextRequest) {
-	const { email } = await request.json();
+	const { email, password } = await request.json();
 	const user = (await prisma.users.findFirst({
 		where: { email },
 		select: { email: true, id: true, new_signup_email: true },

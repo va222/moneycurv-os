@@ -1,10 +1,14 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs';
-
+//import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs';
 import urls from 'constants/url';
 
+export async function middleware(req: NextRequest) {
+	console.log(req);
+	return NextResponse.next();
+}
+/*
 export async function middleware(req: NextRequest) {
 	const res = NextResponse.next();
 	const hostname = req.headers.get('host');
@@ -30,7 +34,7 @@ export async function middleware(req: NextRequest) {
 	}
 
 	return res;
-}
+} */
 
 export const config = {
 	matcher: [

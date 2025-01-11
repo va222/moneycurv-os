@@ -14,27 +14,27 @@ import { apiUrls } from 'lib/apiUrls';
 
 import url from 'constants/url';
 
-const initialState = { loading: false, email: '', success: false, error: '' };
+const initialState = { loading: false, email: '', password: '', success: false, error: '' };
 
 export default function Form() {
 	const [state, setState] = useState(initialState);
 	const inputElement = useRef<HTMLInputElement>(null);
-	const supabase = createClientComponentClient();
+	const password = useRef<HTMLInputElement>(null);
 	const router = useRouter();
 
-	useEffect(() => {
-		inputElement.current?.focus();
+	// useEffect(() => {
+	// 	inputElement.current?.focus();
 
-		async function getUser() {
-			const { data } = await supabase.auth.getUser();
-			const { user } = data;
-			if (user) {
-				router.push(url.app.overview);
-			}
-		}
+	// 	async function getUser() {
+	// 		const { data } = await supabase.auth.getUser();
+	// 		const { user } = data;
+	// 		if (user) {
+	// 			router.push(url.app.overview);
+	// 		}
+	// 	}
 
-		getUser();
-	}, [router, supabase.auth]);
+	// 	getUser();
+	// }, [router, supabase.auth]);
 
 	const handleSignIn = async () => {
 		setState((prev) => ({ ...prev, loading: true, error: '', success: false }));
@@ -42,7 +42,7 @@ export default function Form() {
 		try {
 			const res = await fetch(apiUrls.auth.signin, {
 				method: 'POST',
-				body: JSON.stringify({ email: state.email }),
+				body: JSON.stringify({ email: state.email, password: state.password }),
 				headers: { 'Content-Type': 'application/json' },
 			});
 
@@ -77,6 +77,21 @@ export default function Form() {
 					value={state.email}
 					onChange={(event) => {
 						setState({ ...state, email: event.target.value });
+					}}
+					ref={inputElement}
+				/>
+			</label>
+			<label className="mb-1 block">
+				<span className="mb-2 block text-sm font-semibold leading-6">Password</span>
+				<input
+					className="mt-2 block h-10 w-full appearance-none rounded-md bg-white px-3 text-sm text-black shadow-sm ring-1 ring-gray-300 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-gray-900"
+					autoFocus
+					autoComplete="password"
+					type="password"
+					required
+					value={state.password}
+					onChange={(event) => {
+						setState({ ...state, password: event.target.value });
 					}}
 					ref={inputElement}
 				/>
