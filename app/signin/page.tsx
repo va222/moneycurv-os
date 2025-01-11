@@ -34,11 +34,11 @@ export default function SignIn() {
 				<Link href="https://expense.fyi">
 					<h1 className="flex flex-col items-center text-3xl">
 						<Image className="active:scale-95" src={logo} width={50} height={50} alt="expense.fyi logo" />
-						<span className="mt-2 font-black text-gray-900">Expense.fyi</span>
+						<span className="mt-2 font-black text-gray-900">{process.env.WEBSITE_NAME}</span>
 					</h1>
 				</Link>
 				<p className="mb-6 mt-3 text-center text-sm font-medium text-zinc-600">
-					Use your email address to securely sign in.
+					Use your email address & password to securely sign in.
 				</p>
 				<SignInForm />
 			</div>
